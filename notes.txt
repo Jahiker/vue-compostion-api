@@ -1,0 +1,54 @@
+# VUE JS, OPTION API Y COMPOSITION API
+
+## Options API 
+-- Podemos crear componentes completo desde la configuracion de un objeto json 
+
+## Composition API 
+-- Tiene una estructura mas parecida a la programacion funcional y el codigo es mucho mas organizado
+
+## Styles in components 
+-- Los estilos que se definen en un componente, se definen como estilos globales
+-- para delimitar los estilos, unicamente al componente se utiliza el atributo scoped => <style scoped>
+
+## Component <componenet :is=""></componenet>
+-- es un componente que se puede comportar como cualquier otro componente que reciba en la directiva :is 
+
+## Componentes asincronos
+-- Vue nos proporciona una funcion => defineAsyncComponent
+-- esta nos permite cargar los componentes de forma asincrona solo cuando son necesarios y asi ayudar al performance del sitio.
+
+## Componente transition
+-- Es un componente que permite agregar animaciones css 
+-- Se le coloca un name al componente y esa sera la clase identificadora para establecer animaciones 
+
+## Teleports
+-- Es un tipo de componente espacial y permite que un componente definido pueda mostrarse en otra parte del documento
+
+## Virtual DOM (Virtual Document Object Model)
+-- Es una capa intermedia entre el template y el DOM hecha con javascript
+-- Es una copia del DOM que vive en la memoria RAM
+-- Es mas facil de acceder y modificar el el DOM porque es un objeto JS 
+
+## Ciclo de vida de los componentes 
+-- beforeCreate: antes de que se comience a crear el componente 
+-- created: el componente ya esta creado mas no existe en el DOM 
+-- beforeMount: antes de montar el componente en el DOM 
+-- mounted: ya esta el componente montado 
+-- beforeUpdate: antes de que suceda cualquier modificacion del componente 
+-- updated: ya el componen: antes de que se destruyate se ha actualizado
+-- beforeUnmount: antes de que se destruya el componente
+-- unmounted: ya fue destruido el componente 
+
+## Mixins 
+-- Es una opcion disponible en la Options API de vue 
+-- Nos permite combinar los json de la options API para poder crear componentes genericos 
+-- estos componentes al ser genericos son reutilizables y a travez de atributos y metodos defines la forma del componente como lo requieras (Es como una especie de herencia o composicion de componentes)
+-- Como desventaja tenemos que no sabemos que hay en el mixins hasta que abres su codigo 
+-- como no hay visibilidad directa es un poco dificil debuggear
+-- a partir de la version 3 ya no son necesarios por que se cuenta con el composition API 
+
+## Composition API
+-- Todo parte desde la funcion setup, que es una funcion que se ejecuta al inicio del ciclo de vida del componente
+-- La funcion setup recibe por defecto dos argumentos las props y ctx (contexto) 
+-- La funcion setup retorna todo lo que quieras exporner accerca del componente 
+-- con la composition API puedes acceder a todos los elementos de ciclo de vida de un componentes menos al beforeCreate y created porque son remmplazados por la funcion setup()
