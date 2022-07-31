@@ -52,3 +52,113 @@
 -- La funcion setup recibe por defecto dos argumentos las props y ctx (contexto) 
 -- La funcion setup retorna todo lo que quieras exporner accerca del componente 
 -- con la composition API puedes acceder a todos los elementos de ciclo de vida de un componentes menos al beforeCreate y created porque son remmplazados por la funcion setup()
+
+## Variables reactivas
+-- ref: nos da una referencia reactiva a un dato primitivo o una variable
+-- reactive: es igual que ref pero para datos tipo objetos
+
+###################################################################
+# NOTAS DEL PROFESOR
+
+La reactividad de VueJS es posible gracias al objeto Proxy en JavaScript.
+Proxy nos permite crear una referencia a otro objeto, que se comportará igual que si se tratara del objeto original, pero agregando la capacidad de escuchar cada vez que un valor del objeto cambia para ejecutar algún código.
+
+De hecho, cada cambio que hacemos sobre un objeto Proxy, en realidad se aplica al objeto original, aún así, para JS se sigue tratando de dos objetos distintos, por lo que si aplicamos un cambio al objeto original, el objeto Proxy no se enterará, es decir, el valor si se verá reflejado al accederlo, pero los handlers que escuchan esos cambios no se activarán.
+
+``// Ejemplo de proxy
+// Se define el objeto original
+const obj = {
+  counter: 0
+};
+
+/*
+ Se definen los handlers,
+ que escucharán todo lo que suceda con el objeto original.
+*/
+const handlers = {
+  /* 
+    Este handler escucha cada vez que
+    asignamos un nuevo valor a un atributo del objeto original.
+  */
+  set(obj, prop, val) {
+    /*
+      obj: refiere al objeto original
+      prop: es el atributo del objeto, por ejemplo: counter
+    */
+     console.log(`update: ${prop}`);
+  }
+}
+
+    // Creamos un proxy de obj
+    const proxy = new Proxy(obj, handlers);
+
+    // Ejecutamos lo siguiente en la consola
+    obj.counter 
+    output: 0
+
+    proxy.counter
+    output: 0
+
+    // el handler no se ejecuta
+    obj.counter++
+
+    obj.counter
+    output: 1
+
+    proxy.counter
+    output: 1
+
+    // el handler si se ejecuta
+    proxy.counter++
+    output: update counter
+
+    obj.counter
+    output: 2
+
+    proxy.counter
+    output: 2``
+
+Es gracias al objeto Proxy, que VueJS puede saber que un valor ha cambiado y así propagar ese cambio a todos los lugares dónde se use ese valor, esto es a lo que conocemos cómo reactividad.
+
+Sin embargo, el objeto Proxy tiene ciertas reglas para funcionar, la principal es que necesita envolver a un objeto, no puede funcionar sobre variables que solo tengan valores de tipo primitivo (números, cadenas de texto, booleanos, etc).
+
+Es por eso que cuándo se trata de valores de tipo primitivo, cómo es el caso de la función ref, siempre tenemos que usar el atributo value para acceder al valor y así mantener la reactividad, pues por detrás estará creando un objeto con la propiedad value, a la cuál le asignará el valor que ref recibe por argumento.
+
+``// Podemos imaginar el código de ref más o menos así
+function ref(value) {
+  return new Proxy({ value }, {
+    set(obj, prop, val) {
+  	/* Aquí vue escucha cuándo asignamos un nuevo valor */
+    }
+  });
+}
+
+// Uso
+const counter = ref(0);
+counter.value = 10;
+console.log(counter.value); // output 10``
+
+Mientras tanto cuándo usamos reactive, el valor que pasamos por argumento ya es un objeto, así que VueJS puede aplicarle todo su sistema de reactividad sin necesidad de hacer nada más.
+
+``
+// Podemos imaginar el código de reactive más o menos así
+function ref(value) {
+  return new Proxy(value, {
+    set(obj, prop, val) {
+  	/* Aquí vue escucha cuándo asignamos un nuevo valor */
+    }
+  });
+}
+
+// Uso
+const obj = reactive({ counter: 0 });
+obj.counter = 10;
+console.log(obj.counter); // output 10
+``
+
+Es por esto que en variables creadas con ref necesitamos usar el atributo value, pero en variables creadas con reactive, no es necesario.
+
+Esto también significa que debemos tener cuidado al usar cosas cómo el spread operator (…), ya que estaríamos extrayendo el valor del objeto Proxy, y por lo tanto obtenemos el valor, más no la referencia, y podemos perder la reactividad.
+
+###################################################################
+
