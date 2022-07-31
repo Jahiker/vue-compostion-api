@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { ref, reactive } from "vue";
+import { ref, reactive, watch } from "vue";
 
   export default {
     setup() {
@@ -17,6 +17,20 @@ import { ref, reactive } from "vue";
 
       setInterval(() => counter.value++, 1000);
       setInterval(() => obj.counter++, 1000);
+
+      watch(obj, (newVal, oldVal) => {
+        console.log({
+          newVal: newVal.counter,
+          oldVal: oldVal.counter
+        })
+      });
+
+      // watch(counter, (newVal, oldVal) => {
+      //   console.log({
+      //     newVal,
+      //     oldVal
+      //   })
+      // });
 
       return {
         text,

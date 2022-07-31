@@ -162,3 +162,6 @@ Esto también significa que debemos tener cuidado al usar cosas cómo el spread 
 
 ###################################################################
 
+## Watch
+-- Es uan funcion que observa cambios sobre una avriables y ejecuta una funcion cada vez que el valor cambie 
+-- La funcion que ejecuta watch recibe 2 argumentos, el nuevo valor y el valor anterior de la variable
