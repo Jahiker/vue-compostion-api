@@ -1,42 +1,38 @@
 <template>
-  <h1>{{ text }}</h1>
-  <p>{{ counter }}</p>
-  <p>{{ obj }}</p>
+  <div>FullName: {{ fullName }}</div>
 </template>
 
 <script>
-import { ref, reactive, watch } from "vue";
+import { ref, computed } from "vue";
 
   export default {
     setup() {
-      const text = ref("Hola Vue");
-      const counter = ref(0);
-      const obj = reactive({
-        counter: 0
-      })
+      const firstName = ref("Jahiker");
+      const lastName = ref("Rojas");
 
-      setInterval(() => counter.value++, 1000);
-      setInterval(() => obj.counter++, 1000);
-
-      watch(obj, (newVal, oldVal) => {
-        console.log({
-          newVal: newVal.counter,
-          oldVal: oldVal.counter
-        })
-      });
-
-      // watch(counter, (newVal, oldVal) => {
-      //   console.log({
-      //     newVal,
-      //     oldVal
-      //   })
-      // });
+      const fullName = computed(() => {
+        return `${firstName.value} ${lastName.value}`;
+      });      
 
       return {
-        text,
-        counter,
-        obj
-      }
+        firstName,
+        lastName,
+        fullName
+      };
     }
   }
 </script>
+
+<!-- <script setup>
+import { ref, computed } from "vue";
+
+
+const firstName = ref("Jahiker");
+const lastName = ref("Rojas");
+
+const fullName = computed(() => {
+  return `${firstName.value} ${lastName.value}`;
+});
+
+
+</script> -->
