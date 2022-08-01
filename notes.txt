@@ -52,6 +52,7 @@
 -- La funcion setup recibe por defecto dos argumentos las props y ctx (contexto) 
 -- La funcion setup retorna todo lo que quieras exporner accerca del componente 
 -- con la composition API puedes acceder a todos los elementos de ciclo de vida de un componentes menos al beforeCreate y created porque son remmplazados por la funcion setup()
+-- La funcion setup por ejecutarse antes del ciclo de vida de Vue, no tendra acceso a datos como el atributo $el, ref, $data, funciones computadas definidas en la opcions API y los methods, esto se debe a que no  podemos acceder a this, entonces todo lo que requiera el uso de this es inaccesible en la funcion setup  
 
 ## Variables reactivas
 -- ref: nos da una referencia reactiva a un dato primitivo o una variable
@@ -170,3 +171,10 @@ Esto también significa que debemos tener cuidado al usar cosas cómo el spread 
 -- Se recibe el objeto props fuera de la funcion setup 
 -- La funcion setup recibe las props como atributo
 -- Para que las props sean reactivas ultilizamos el hook toRefs para convertir objetos planos en reactivos 
+
+# Context 
+-- El contexto no das mas informacion sobre el componente 
+-- attrs (attributes): son los atributos que del componehte que no sean declarados como props 
+-- emit: son eventos personalizados que va a emitir el componente 
+-- expose: es una funcion que podemos usar una sola vez dentro del componente y nos permite exponer variables y valores que son internos que pertenencen al scope del componente y asi poder acceder a ellos fuera del componente 
+-- slots: contiene los slots que puede recibir el componente 
