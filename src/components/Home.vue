@@ -11,6 +11,7 @@ import { computed, toRefs } from "vue";
       lastName: String
     },
     setup(props, context) {
+      
     console.log("🚀 ~ file: Home.vue ~ line 14 ~ setup ~ context", context);
       
       const { firstName, lastName } = toRefs(props);
