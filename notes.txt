@@ -172,9 +172,12 @@ Esto también significa que debemos tener cuidado al usar cosas cómo el spread 
 -- La funcion setup recibe las props como atributo
 -- Para que las props sean reactivas ultilizamos el hook toRefs para convertir objetos planos en reactivos 
 
-# Context 
+## Context 
 -- El contexto no das mas informacion sobre el componente 
 -- attrs (attributes): son los atributos que del componehte que no sean declarados como props 
 -- emit: son eventos personalizados que va a emitir el componente 
 -- expose: es una funcion que podemos usar una sola vez dentro del componente y nos permite exponer variables y valores que son internos que pertenencen al scope del componente y asi poder acceder a ellos fuera del componente 
 -- slots: contiene los slots que puede recibir el componente 
+
+## Provide - Inject
+-- Nos permite la comunicacion de props con componentes de mayor profundidad a un hijo 
