@@ -1,10 +1,11 @@
 <template>
   <div>{{ fullName }}</div>
   <div>{{ username }}</div>
+  <button ref="btn">Click</button>
 </template>
 
 <script>
-import { computed, toRefs, inject } from "vue";
+import { computed, toRefs, inject, ref, watch } from "vue";
 
   export default {
     props: {
@@ -19,8 +20,15 @@ import { computed, toRefs, inject } from "vue";
         return `${firstName.value} ${lastName.value}`;
       });
 
-      const username = inject("username")
-      console.log("🚀 ~ file: Home.vue ~ line 22 ~ setup ~ username", username)
+      const username = inject("username");
+
+      const btn = ref(null);
+
+      console.log("🚀 ~ file: Home.vue ~ line 26 ~ setup ~ btn", btn.value);
+
+      watch(btn, (valor) => {
+        console.log("🚀 ~ file: Home.vue ~ line 30 ~ watch ~ valor", valor)
+      })
       
       context.expose({
         fullName
@@ -28,7 +36,8 @@ import { computed, toRefs, inject } from "vue";
 
       return {
         fullName,
-        username
+        username,
+        btn
       };
     }
   }

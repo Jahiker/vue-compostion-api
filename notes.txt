@@ -181,3 +181,7 @@ Esto también significa que debemos tener cuidado al usar cosas cómo el spread 
 
 ## Provide - Inject
 -- Nos permite la comunicacion de props con componentes de mayor profundidad a un hijo 
+-- Provide se define dentro del Setup dentro del componente principal App
+-- El inject se usa dentro de los componentes descendientes y se asigan el valor a una variable 
+
+## Refs 
