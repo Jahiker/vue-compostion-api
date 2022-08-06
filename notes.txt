@@ -185,3 +185,6 @@ Esto también significa que debemos tener cuidado al usar cosas cómo el spread 
 -- El inject se usa dentro de los componentes descendientes y se asigan el valor a una variable 
 
 ## Refs 
+
+
+## Composition vs Options 
